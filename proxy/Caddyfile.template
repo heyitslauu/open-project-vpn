@@ -1,0 +1,12 @@
+:80 {
+    reverse_proxy /hocuspocus* hocuspocus:1234
+
+    reverse_proxy * http://${APP_HOST}:8080 {
+        header_up X-Forwarded-Proto https
+        header_up X-Forwarded-For {header.X-Forwarded-For}
+    }
+
+    file_server
+
+    log
+}
